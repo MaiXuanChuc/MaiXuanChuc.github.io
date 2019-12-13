@@ -2,6 +2,27 @@ const socket = io('https://doanhenhungv3.herokuapp.com/');
 
 $('#div-chat').hide();
 
+let customConfig;
+
+$.ajax({
+  url: "https://service.xirsys.com/ice",
+  gateway: "global.xirsys.net",
+  data: {
+    ident: "Chuccute",
+    secret: "87035f60-1cf8-11ea-9f6f-0242ac110004",
+    application: "default",
+    channel:"MyFirstApp"
+    room: "default",
+    secure: 1
+  },
+  success: function (data, status) {
+    // data.d is where the iceServers object lives
+    customConfig = data.d;
+    console.log(customConfig);
+  },
+  async: false
+});
+
 socket.on('Danh_dach_on_line',arrUserInfo => {
     $('#div-chat').show();
     $('#div-dang-ky').hide();
@@ -37,14 +58,20 @@ function playStream(idVideoTag,stream){
 openStream()
 .then(stream => playStream('localStream',stream));
 
-const peer = new Peer({key: 'peerjs',host:'mypeer1303.herokuapp.com',secure:true,port:443}); 
-peer.on('open',id=>{
+const peer = new Peer({key: 'peerjs',host:'https://mypeer1303.herokuapp.com/',
+	secure:true,
+	port:443,
+	config: customConfig;
+}); 
+
+
+	peer.on('open',id=>{
     $('#my-peer').append(id);
     $('#btnSignUp').click(()=> {
         const username =$('#texUsername').val();
         socket.emit('Nguoi_dung_dang_ky',{ ten: username, peerId: id});
     });
-});
+
 //Caller
 $('#btnCall').click(()=>{
     const id =$('#remoteId').val();
