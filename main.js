@@ -6,7 +6,6 @@ let customConfig;
 
 $.ajax({
   url: "https://service.xirsys.com/ice",
-  gateway: "global.xirsys.net",
   data: {
     ident: "Chuccute",
     secret: "87035f60-1cf8-11ea-9f6f-0242ac110004",
