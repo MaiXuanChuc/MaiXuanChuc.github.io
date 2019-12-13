@@ -60,7 +60,7 @@ openStream()
 const peer = new Peer({key: 'peerjs',host:'https://mypeer1303.herokuapp.com/',
 	secure:true,
 	port:443,
-	config: customConfig;
+	config: customConfig
 }); 
 
 
