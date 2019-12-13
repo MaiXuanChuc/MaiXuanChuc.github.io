@@ -71,7 +71,7 @@ const peer = new Peer({key: 'peerjs',host:'https://mypeer1303.herokuapp.com/',
         const username =$('#texUsername').val();
         socket.emit('Nguoi_dung_dang_ky',{ ten: username, peerId: id});
     });
-
+});
 //Caller
 $('#btnCall').click(()=>{
     const id =$('#remoteId').val();
