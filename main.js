@@ -24,7 +24,7 @@ socket.on('Danh_dach_on_line',arrUserInfo => {
 socket.on('Dang_ky_bat_thanh',()=> alert('vui long chon username khac!'));
 
 function openStream(){
-    const cofig = { audio: false, video: true};
+    const cofig = { audio: true, video: true};
     return navigator.mediaDevices.getUserMedia(cofig);
 }
 
@@ -34,10 +34,11 @@ function playStream(idVideoTag,stream){
     video.play();
 }
 
-openStream()
-.then(stream => playStream('localStream',stream));
+//openStream()
+//.then(stream => playStream('localStream',stream));
 
 const peer = new Peer({key: 'peerjs',host:'mypeer1303.herokuapp.com',secure:true,port:443}); 
+
 peer.on('open',id=>{
     $('#my-peer').append(id);
     $('#btnSignUp').click(()=> {
