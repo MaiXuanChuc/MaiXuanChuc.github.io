@@ -4,23 +4,7 @@ $('#div-chat').hide();
 
 let customConfig;
 
-$.ajax({
-  url: "https://service.xirsys.com/ice",
-  data: {
-    ident: "Chuccute",
-    secret: "87035f60-1cf8-11ea-9f6f-0242ac110004",
-    domain: "maixuanchuc.github.io",
-    application: "default",
-    channel:"MyFirstApp",
-    secure: 1
-  },
-  success: function (data, status) {
-    // data.d is where the iceServers object lives
-    customConfig = data.d;
-    console.log(customConfig);
-  },
-  async: false
-});
+
 
 socket.on('Danh_dach_on_line',arrUserInfo => {
     $('#div-chat').show();
