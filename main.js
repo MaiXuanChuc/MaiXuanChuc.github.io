@@ -2,10 +2,6 @@ const socket = io('https://doanhenhungv3.herokuapp.com/');
 
 $('#div-chat').hide();
 
-let customConfig;
-
-
-
 socket.on('Danh_dach_on_line',arrUserInfo => {
     $('#div-chat').show();
     $('#div-dang-ky').hide();
@@ -41,14 +37,8 @@ function playStream(idVideoTag,stream){
 openStream()
 .then(stream => playStream('localStream',stream));
 
-const peer = new Peer({key: 'peerjs',host: 'my-peer1412.herokuapp.com',
-	secure:true,
-	port: 443
-	//config: customConfig
-}); 
-
-
-	peer.on('open',id=>{
+const peer = new Peer({key: 'peerjs',host:'mypeer1303.herokuapp.com',secure:true,port:443}); 
+peer.on('open',id=>{
     $('#my-peer').append(id);
     $('#btnSignUp').click(()=> {
         const username =$('#texUsername').val();
