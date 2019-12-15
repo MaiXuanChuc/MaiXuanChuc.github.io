@@ -29,8 +29,14 @@ function openStream(){
 }
 
 function playStream(idVideoTag,stream){
+
     const video = document.getElementById(idVideoTag);
-    video.srcObject = stream;
+    try{
+            video.srcObject = stream;
+    }
+    catch(e){
+        video.src =window.URL.createObjectURL(stream);
+    }
     video.play();
 }
 
