@@ -31,24 +31,17 @@ function openStream(){
 function playStream(idVideoTag,stream){
 
     const video = document.getElementById(idVideoTag);
-    video.srcObject = stream;
-    var isPlaying = video.currentTime > 0 && !video.paused && !video.ended 
-    && video.readyState > 2;
-
-    if (!isPlaying) {
-    video.play();
+    try{
+            video.srcObject = stream;
     }
-   // try{
-    //        video.srcObject = stream;
-   // }
-    //catch(e){
-     //   video.src =window.URL.createObjectURL(stream);
-    //}
-    //video.play();
+    catch(e){
+        video.src =window.URL.createObjectURL(stream);
+    }
+   // video.play();
 }
 
-//openStream()
-//.then(stream => playStream('localStream',stream));
+    openStream()
+    .then(stream => playStream('localStream',stream));
 
 const peer = new Peer({key: 'peerjs',host:'mypeer1303.herokuapp.com',secure:true,port:443}); 
 
