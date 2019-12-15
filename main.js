@@ -31,13 +31,20 @@ function openStream(){
 function playStream(idVideoTag,stream){
 
     const video = document.getElementById(idVideoTag);
-    try{
-            video.srcObject = stream;
-    }
-    catch(e){
-        video.src =window.URL.createObjectURL(stream);
-    }
+    video.srcObject = stream;
+    var isPlaying = video.currentTime > 0 && !video.paused && !video.ended 
+    && video.readyState > 2;
+
+    if (!isPlaying) {
     video.play();
+    }
+   // try{
+    //        video.srcObject = stream;
+   // }
+    //catch(e){
+     //   video.src =window.URL.createObjectURL(stream);
+    //}
+    //video.play();
 }
 
 //openStream()
