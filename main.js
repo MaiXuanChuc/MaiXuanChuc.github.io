@@ -54,15 +54,15 @@ peer.on('open', id => {
 
 });
 //Caller
-//$('#btnCall').click(() => {
-//    const id = $('#remoteId').val();
-//    openStream()
- //       .then(stream => {
- //           playStream('localStream', stream);
-  //          const call = peer.call(id, stream);
- //           call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
- //       });
-//});
+$('#btnCall').click(() => {
+   const id = $('#remoteId').val();
+       openStream()
+        .then(stream => {
+            //playStream('localStream', stream);
+            const call = peer.call(id, stream);
+            call.on('stream', remoteStream => playStream('localStream', remoteStream));
+        });
+});
 
 peer.on('call', call => {
     openStream()
