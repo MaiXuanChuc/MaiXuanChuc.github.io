@@ -38,10 +38,10 @@ const peer = new Peer({ key: 'peerjs', host: 'mypeer1303.herokuapp.com', secure:
 peer.on('open', id => {
     socket.emit('camera_pi');
     socket.on('them_phan_tu_dau', arrUserInfo =>{
-        if(arrUserInfo[0].ten === "")
+        if (arrUserInfo === undefined || arrUserInfo.length == 0)
         {
-           arrUserInfo[0].ten === "Camera-Pi";
-           socket.emit('Nguoi_dung_dang_ky', { ten: arrUserInfo[0].ten, peerId: id });
+           const username = "Camera-Pi"
+           socket.emit('Nguoi_dung_dang_ky', { ten: username, peerId: id });
         }
         else{
             $('#btnSignUp').click(() => {
