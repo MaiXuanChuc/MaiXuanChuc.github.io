@@ -2,16 +2,15 @@ const socket = io('https://doanhenhungv4.herokuapp.com');
 
 
 socket.on('Danh_dach_on_line', arrUserInfo => {
-    /*arrUserInfo.forEach(user => {
+    arrUserInfo.forEach(user => {
         const { ten, peerId } = user;
-        $('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
+        //$('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
     });
 
     socket.on('Co_nguoi_dung_moi', user => {
         const { ten, peerId } = user;
-        $('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
+       // $('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
     });
-        */
     socket.on('Ai-do-vua-ngat-ket-noi', peerId => {
         $(`#${peerId}`).remove();
     });
