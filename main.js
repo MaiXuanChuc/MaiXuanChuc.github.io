@@ -2,7 +2,7 @@ const socket = io('https://doanhenhungv4.herokuapp.com');
 
 
 socket.on('Danh_dach_on_line', arrUserInfo => {
-    arrUserInfo.forEach(user => {
+    /*arrUserInfo.forEach(user => {
         const { ten, peerId } = user;
         $('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
     });
@@ -11,7 +11,7 @@ socket.on('Danh_dach_on_line', arrUserInfo => {
         const { ten, peerId } = user;
         $('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
     });
-
+        */
     socket.on('Ai-do-vua-ngat-ket-noi', peerId => {
         $(`#${peerId}`).remove();
     });
@@ -41,13 +41,13 @@ peer.on('open', id => {
         if (arrUserInfo === undefined || arrUserInfo.length == 0)
         {
            const username = "Camera-Pi"
-           socket.emit('Nguoi_dung_dang_ky', { ten: username, peerId: id });
+           //socket.emit('Nguoi_dung_dang_ky', { ten: username, peerId: id });
         }
         else{
-            $('#btnSignUp').click(() => {
-                const username = $('#texUsername').val();
-                socket.emit('Nguoi_dung_dang_ky', { ten: username, peerId: id });
-            });
+            //$('#btnSignUp').click(() => {
+            //    const username = $('#texUsername').val();
+            //    socket.emit('Nguoi_dung_dang_ky', { ten: username, peerId: id });
+            //});
             $('#btnCall').click(() => {
                 const { ten, peerId } = arrUserInfo[0];
                 const id = peerId;
