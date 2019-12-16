@@ -45,7 +45,7 @@ peer.on('open', id => {
         else{
             //$('#btnSignUp').click(() => {
             //    const username = $('#texUsername').val();
-                const username = "Nguoi goi";
+                const username = "Nguoi-goi";
                 socket.emit('Nguoi_dung_dang_ky', { ten: username, peerId: id });
             //});
             $('#btnCall').click(() => {
