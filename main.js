@@ -1,7 +1,25 @@
 const socket = io('https://doanhenhungv3.herokuapp.com/');
 
 $('#div-chat').hide();
+let customConfig;
 
+$.ajax({
+  url: "https://service.xirsys.com/ice",
+  data: {
+    ident: "vanpho",
+    secret: "2b1c2dfe-4374-11e7-bd72-5a790223a9ce",
+    domain: "vanpho93.github.io",
+    application: "default",
+    room: "default",
+    secure: 1
+  },
+  success: function (data, status) {
+    // data.d is where the iceServers object lives
+    customConfig = data.d;
+    console.log(customConfig);
+  },
+  async: false
+});
 socket.on('Danh_dach_on_line', arrUserInfo => {
     $('#div-chat').show();
     $('#div-dang-ky').hide();
@@ -24,7 +42,7 @@ socket.on('Danh_dach_on_line', arrUserInfo => {
 socket.on('Dang_ky_bat_thanh', () => alert('vui long chon username khac!'));
 
 function openStream() {
-    const cofig = { audio: true, video: true };
+    const cofig = { audio: false, video: true };
     return navigator.mediaDevices.getUserMedia(cofig);
 }
 
