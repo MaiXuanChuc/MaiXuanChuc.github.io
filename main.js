@@ -1,29 +1,7 @@
-const socket = io('https://doanhenhungv3.herokuapp.com/');
+const socket = io('https://doanhenhungv4.herokuapp.com');
 
-$('#div-chat').hide();
-let customConfig;
 
-$.ajax({
-  url: "https://service.xirsys.com/ice",
-  data: {
-    ident: "vanpho",
-    secret: "2b1c2dfe-4374-11e7-bd72-5a790223a9ce",
-    domain: "vanpho93.github.io",
-    application: "default",
-    room: "default",
-    secure: 1
-  },
-  success: function (data, status) {
-    // data.d is where the iceServers object lives
-    customConfig = data.d;
-    console.log(customConfig);
-  },
-  async: false
-});
 socket.on('Danh_dach_on_line', arrUserInfo => {
-    $('#div-chat').show();
-    $('#div-dang-ky').hide();
-
     arrUserInfo.forEach(user => {
         const { ten, peerId } = user;
         $('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
@@ -39,7 +17,6 @@ socket.on('Danh_dach_on_line', arrUserInfo => {
     });
 });
 
-socket.on('Dang_ky_bat_thanh', () => alert('vui long chon username khac!'));
 
 function openStream() {
     const cofig = { audio: false, video: true };
@@ -59,22 +36,33 @@ const peer = new Peer({ key: 'peerjs', host: 'mypeer1303.herokuapp.com', secure:
 // const peer = new Peer( {host: 'mypeer1303.herokuapp.com', port: 443});
 
 peer.on('open', id => {
-    $('#my-peer').append(id);
-    $('#btnSignUp').click(() => {
-        const username = $('#texUsername').val();
-        socket.emit('Nguoi_dung_dang_ky', { ten: username, peerId: id });
+    socket.emit('camera_pi');
+    socket.on('them_phan_tu_dau', arrUserInfo =>{
+        if(arrUserInfo[0].ten === "")
+        {
+           arrUserInfo[0].ten === "Camera-Pi";
+           socket.emit('Nguoi_dung_dang_ky', { ten: arrUserInfo[0].ten, peerId: id });
+        }
+        else{
+            $('#btnSignUp').click(() => {
+                const username = $('#texUsername').val();
+                socket.emit('Nguoi_dung_dang_ky', { ten: username, peerId: id });
+            });
+        }
+
     });
+
 });
 //Caller
-$('#btnCall').click(() => {
-    const id = $('#remoteId').val();
-    openStream()
-        .then(stream => {
-            playStream('localStream', stream);
-            const call = peer.call(id, stream);
-            call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
-        });
-});
+//$('#btnCall').click(() => {
+//    const id = $('#remoteId').val();
+//    openStream()
+ //       .then(stream => {
+ //           playStream('localStream', stream);
+  //          const call = peer.call(id, stream);
+ //           call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
+ //       });
+//});
 
 peer.on('call', call => {
     openStream()
