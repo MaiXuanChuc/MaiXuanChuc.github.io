@@ -48,21 +48,22 @@ peer.on('open', id => {
                 const username = $('#texUsername').val();
                 socket.emit('Nguoi_dung_dang_ky', { ten: username, peerId: id });
             });
+            $('#btnCall').click(() => {
+                const { ten, peerId } = arrUserInfo[0];
+                const id = peerId;
+                    openStream()
+                     .then(stream => {
+                         //playStream('localStream', stream);
+                         const call = peer.call(id, stream);
+                         call.on('stream', remoteStream => playStream('localStream', remoteStream));
+                     });
+             });
         }
 
     });
 
 });
 //Caller
-$('#btnCall').click(() => {
-   const id = $('#remoteId').val();
-       openStream()
-        .then(stream => {
-            //playStream('localStream', stream);
-            const call = peer.call(id, stream);
-            call.on('stream', remoteStream => playStream('localStream', remoteStream));
-        });
-});
 
 peer.on('call', call => {
     openStream()
